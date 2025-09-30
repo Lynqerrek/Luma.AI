@@ -282,24 +282,66 @@
       </form>
     </div>
     <div class="footer">
-      Luma.AI &copy; 2025. Inspired By The Best. All rights reserved.
+      Luma.AI &copy; 2025. Powered by OpenRouter. All rights reserved.
     </div>
   </div>
   <script>
+    // OpenRouter API integration
+    const OPENROUTER_API_KEY = "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";
+
+    async function callLumaAI(message) {
+      const endpoint = "https://openrouter.ai/api/v1/chat/completions";
+      const body = {
+        model: "openchat/openchat-3.5-1210", // Free model
+        messages: [
+          { role: "system", content: "You are Luma.AI, a friendly and helpful assistant." },
+          { role: "user", content: message }
+        ]
+      };
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(body)
+        });
+        if (!response.ok) {
+          return "Sorry, Luma.AI couldn't get a response from the AI server.";
+        }
+        const data = await response.json();
+        return data.choices && data.choices[0] && data.choices[0].message.content
+          ? data.choices[0].message.content
+          : "Sorry, I couldn't get a response from Luma.AI.";
+      } catch (e) {
+        return "Sorry, there was an error connecting to Luma.AI.";
+      }
+    }
+
     const chatMessages = document.getElementById('chatMessages');
     const chatForm = document.getElementById('chatForm');
     const userInput = document.getElementById('userInput');
 
-    chatForm.addEventListener('submit', function(e){
+    chatForm.addEventListener('submit', async function(e){
       e.preventDefault();
       const text = userInput.value.trim();
       if (!text) return;
       addBubble(text, 'user');
       userInput.value = '';
-      setTimeout(() => {
-        // Simulated AI response, will be replaced with Monica API integration
-        addBubble("This is a sample Luma.AI response. Connect your AI backend here!", 'ai');
-      }, 650);
+      addBubble("Thinking...", "ai"); // Loading indicator
+
+      let reply;
+      try {
+        reply = await callLumaAI(text);
+      } catch (err) {
+        reply = "Sorry, something went wrong.";
+      }
+
+      // Remove loading indicator
+      const bubbles = document.querySelectorAll('.bubble.ai');
+      if (bubbles.length > 0) bubbles[bubbles.length - 1].remove();
+      addBubble(reply, 'ai');
     });
 
     function addBubble(text, sender) {
