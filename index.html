@@ -292,7 +292,7 @@
 
     chatForm.addEventListener('submit', function(e){
       e.preventDefault();
-      let text = userInput.value.trim();
+      const text = userInput.value.trim();
       if (!text) return;
       addBubble(text, 'user');
       userInput.value = '';
