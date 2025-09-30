@@ -2,25 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AI Chat — Frutiger Aero</title>
+  <title>Frutiger Aero Chat AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Frutiger Aero Glassy Background */
-    body {
+    :root {
+      /* Light theme colors */
+      --bg-gradient: radial-gradient(ellipse at 70% 40%, #e5faff 0%, #a7e7ff 60%, #c3e8f6 100%);
+      --card-bg: linear-gradient(120deg, #f4fbff 70%, #d4f1fd 100%);
+      --header-bg: linear-gradient(90deg, #e5faff 70%, #a7e7ff 100%);
+      --bubble-ai: linear-gradient(120deg, #3ac6fa 70%, #92e2ff 100%);
+      --bubble-user: linear-gradient(120deg, #e5faff 65%, #a7e7ff 100%);
+      --input-bg: #f4fbff;
+      --text-color: #2554a3;
+      --bubble-user-text: #2554a3;
+      --bubble-ai-text: #fff;
+      --glass: #ffffff50;
+      --shadow: 0 8px 40px #3ac6fa30, 0 0 0 4px #b5e2ff44;
+      --border: 1.5px solid #92e2ff66;
+      --scrollbar: #92e2ff;
+      --header-text: #2554a3;
+      --toggle-bg: #e5faff;
+      --toggle-shadow: 0 2px 8px #3ac6fa22;
+    }
+    [data-theme="dark"] {
+      --bg-gradient: radial-gradient(ellipse at 70% 40%, #92e2ff 0%, #3ac6fa 60%, #2554a3 100%);
+      --card-bg: linear-gradient(120deg, #e5faff2a 70%, #b5e2ff2a 100%);
+      --header-bg: linear-gradient(90deg, #92e2ff55 70%, #3ac6fa80 100%);
+      --bubble-ai: linear-gradient(120deg, #3ac6fa 70%, #92e2ff 100%);
+      --bubble-user: linear-gradient(120deg, #e5faff 65%, #a7e7ff 100%);
+      --input-bg: #231b37;
+      --text-color: #e1d9ff;
+      --bubble-user-text: #2554a3;
+      --bubble-ai-text: #fff;
+      --glass: #ffffff30;
+      --shadow: 0 8px 40px #3ac6fa30, 0 0 0 4px #b5e2ff44;
+      --border: 1.5px solid #92e2ff66;
+      --scrollbar: #92e2ff;
+      --header-text: #fff;
+      --toggle-bg: #1a2136;
+      --toggle-shadow: 0 2px 8px #3ac6fa22;
+    }
+    html, body {
+      height: 100%;
       margin: 0;
       padding: 0;
-      min-height: 100vh;
+    }
+    body {
       font-family: 'Segoe UI', 'Inter', Arial, sans-serif;
-      background: radial-gradient(ellipse at 70% 40%, #92e2ff 0%, #3ac6fa 50%, #2554a3 100%) fixed;
+      min-height: 100vh;
+      background: var(--bg-gradient);
       position: relative;
       overflow: hidden;
+      transition: background 0.5s;
       animation: fadeInBg 1.2s;
     }
     @keyframes fadeInBg {
       from { opacity: 0;}
       to { opacity: 1;}
     }
-    /* Glass & glow effect */
+    /* Glass effect overlay */
     .aero-glass {
       position: fixed;
       z-index: 0;
@@ -28,76 +68,114 @@
       width: 100vw;
       height: 100vh;
       pointer-events: none;
-      background: linear-gradient(135deg, #ffffff30 0%, #92e2ff26 100%);
+      background: var(--glass);
       backdrop-filter: blur(20px);
-      opacity: 0.26;
+      opacity: 0.22;
+      transition: background 0.5s, opacity 0.5s;
     }
-    /* Chat container styling */
+    /* Chat Card */
     .chat-container {
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 430px;
-      height: 75vh;
-      min-height: 480px;
-      margin: 60px auto 0 auto;
-      background: linear-gradient(120deg, #e5faff2a 70%, #b5e2ff2a 100%);
-      border-radius: 22px;
-      box-shadow: 0 8px 40px #3ac6fa30, 0 0 0 4px #b5e2ff44;
+      max-width: 470px;
+      height: 78vh;
+      min-height: 490px;
+      margin: 68px auto 0 auto;
+      background: var(--card-bg);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
       overflow: hidden;
       animation: slideInChat 0.9s cubic-bezier(.44,.97,.26,.98);
-      border: 1.5px solid #92e2ff66;
+      border: var(--border);
       backdrop-filter: blur(10px);
+      transition: background 0.5s, box-shadow 0.5s, border 0.5s;
     }
     @keyframes slideInChat {
       from { transform: scale(0.96) translateY(30px); opacity: 0;}
       to { transform: scale(1) translateY(0); opacity: 1;}
     }
     .chat-header {
-      background: linear-gradient(90deg, #92e2ff55 70%, #3ac6fa80 100%);
-      color: #fff;
+      background: var(--header-bg);
+      color: var(--header-text);
       text-align: center;
-      padding: 26px 0 20px 0;
-      font-size: 1.6em;
+      padding: 30px 0 22px 0;
+      font-size: 1.7em;
       letter-spacing: 1px;
       font-weight: 700;
       border-bottom: 1px solid #b5e2ff33;
       box-shadow: 0 1px 8px #3ac6fa22;
       user-select: none;
       animation: fadeInHeader 1.2s 0.3s backwards;
-      text-shadow: 0 2px 12px #92e2ff80;
+      text-shadow: 0 2px 18px #92e2ff80;
       backdrop-filter: blur(4px);
+      transition: background 0.5s, color 0.5s;
     }
     @keyframes fadeInHeader {
       from { opacity: 0; transform: translateY(-18px);}
       to { opacity: 1; transform: translateY(0);}
     }
+    .theme-toggle {
+      position: absolute;
+      right: 22px;
+      top: 22px;
+      background: var(--toggle-bg);
+      color: var(--header-text);
+      border: none;
+      border-radius: 14px;
+      padding: 8px 18px;
+      font-size: 1.08em;
+      box-shadow: var(--toggle-shadow);
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.4s, color 0.4s, box-shadow 0.3s;
+      z-index: 2;
+      outline: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.92;
+      border: 1px solid #a7e7ff60;
+      backdrop-filter: blur(6px);
+    }
+    .theme-toggle:hover {
+      opacity: 1;
+      box-shadow: 0 4px 18px #3ac6fa44;
+    }
+    .theme-toggle svg {
+      vertical-align: middle;
+      width: 22px;
+      height: 22px;
+      filter: drop-shadow(0 0 2px #92e2ff);
+      transition: filter 0.3s;
+    }
     .chat-messages {
       flex: 1;
-      padding: 26px 20px;
+      padding: 30px 22px;
       overflow-y: auto;
-      background: linear-gradient(90deg, #e5faff18 80%, #b5e2ff25 100%);
+      background: transparent;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 19px;
       position: relative;
       z-index: 1;
+      transition: background 0.5s;
     }
     .bubble {
-      padding: 14px 22px;
-      border-radius: 18px;
-      max-width: 80%;
-      font-size: 1.12em;
-      line-height: 1.5;
+      padding: 16px 26px;
+      border-radius: 24px;
+      max-width: 83%;
+      font-size: 1.16em;
+      line-height: 1.6;
       word-break: break-word;
       display: inline-block;
-      box-shadow: 0 2px 12px #92e2ff24;
-      margin-bottom: 2px;
-      animation: bubbleIn 0.36s cubic-bezier(.44,.97,.26,.98);
+      box-shadow: 0 2px 16px #92e2ff15;
+      margin-bottom: 3px;
+      animation: bubbleIn 0.32s cubic-bezier(.44,.97,.26,.98);
       border: 1.5px solid #b5e2ff44;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.2s, color 0.2s, border 0.2s;
       backdrop-filter: blur(3px);
     }
     @keyframes bubbleIn {
@@ -105,46 +183,47 @@
       to { opacity: 1; transform: translateY(0) scale(1);}
     }
     .user {
-      background: linear-gradient(120deg, #e5faff 65%, #a7e7ff 100%);
-      color: #2554a3;
+      background: var(--bubble-user);
+      color: var(--bubble-user-text);
       align-self: flex-end;
-      border-bottom-right-radius: 6px;
-      border-top-left-radius: 20px;
+      border-bottom-right-radius: 8px;
+      border-top-left-radius: 26px;
       border: 1.5px solid #a7e7ff80;
-      box-shadow: 0 4px 18px #a7e7ff22;
+      box-shadow: 0 4px 20px #a7e7ff22;
       font-weight: 500;
-      text-shadow: 0 1px 6px #e5faff44;
+      text-shadow: 0 1px 8px #e5faff44;
     }
     .ai {
-      background: linear-gradient(120deg, #3ac6fa 70%, #92e2ff 100%);
-      color: #fff;
+      background: var(--bubble-ai);
+      color: var(--bubble-ai-text);
       align-self: flex-start;
-      border-bottom-left-radius: 6px;
-      border-top-right-radius: 20px;
+      border-bottom-left-radius: 8px;
+      border-top-right-radius: 26px;
       border: 1.5px solid #3ac6fa60;
-      box-shadow: 0 4px 18px #3ac6fa44;
+      box-shadow: 0 4px 20px #3ac6fa44;
       font-weight: 500;
-      text-shadow: 0 1px 12px #92e2ff80;
+      text-shadow: 0 1px 14px #92e2ff80;
     }
     .chat-input {
       display: flex;
       border-top: 1px solid #b5e2ff33;
-      padding: 18px 16px;
-      background: linear-gradient(90deg, #e5faff55 70%, #3ac6fa90 100%);
-      gap: 12px;
+      padding: 20px 18px;
+      background: var(--header-bg);
+      gap: 14px;
       backdrop-filter: blur(4px);
       box-shadow: 0 -2px 18px #92e2ff22;
+      transition: background 0.5s;
     }
     .chat-input input {
       flex: 1;
-      padding: 13px 18px;
-      font-size: 1.11em;
+      padding: 15px 20px;
+      font-size: 1.15em;
       border-radius: 18px;
-      border: 1.5px solid #3ac6fa;
-      background: #e5faff88;
-      color: #2554a3;
+      border: 1.8px solid #3ac6fa;
+      background: var(--input-bg);
+      color: var(--text-color);
       outline: none;
-      transition: border-color 0.22s;
+      transition: border-color 0.22s, background 0.5s, color 0.5s;
       box-shadow: 0 1px 8px #3ac6fa10;
       font-weight: 500;
       backdrop-filter: blur(1.5px);
@@ -156,27 +235,27 @@
       background: linear-gradient(90deg, #3ac6fa 70%, #92e2ff 100%);
       color: #fff;
       border: none;
-      padding: 0 34px;
+      padding: 0 36px;
       border-radius: 18px;
-      font-size: 1.07em;
+      font-size: 1.11em;
       cursor: pointer;
       font-weight: 600;
-      box-shadow: 0 2px 12px #92e2ff44;
+      box-shadow: 0 2px 14px #92e2ff44;
       transition: background 0.18s, box-shadow 0.18s;
       text-shadow: 0 1px 10px #3ac6fa40;
     }
     .chat-input button:hover {
       background: linear-gradient(90deg, #92e2ff 50%, #3ac6fa 100%);
-      box-shadow: 0 4px 20px #3ac6fa44;
+      box-shadow: 0 4px 22px #3ac6fa44;
     }
     /* Custom scrollbar for chat */
     .chat-messages::-webkit-scrollbar {
       width: 7px;
-      background: #e5faff18;
+      background: var(--card-bg);
       border-radius: 7px;
     }
     .chat-messages::-webkit-scrollbar-thumb {
-      background: #92e2ff;
+      background: var(--scrollbar);
       border-radius: 7px;
     }
     /* Responsive */
@@ -188,15 +267,21 @@
       }
       .chat-messages { padding: 5vw 2vw; }
       .chat-header, .chat-input { padding-left: 2vw; padding-right: 2vw;}
+      .theme-toggle { right: 6vw; top: 10px; }
     }
   </style>
 </head>
-<body>
+<body data-theme="dark">
   <!-- Frutiger Aero Glass Effect -->
   <div class="aero-glass"></div>
 
   <div class="chat-container">
-    <div class="chat-header">Frutiger Aero Chat AI</div>
+    <div class="chat-header">
+      Frutiger Aero Chat AI
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+        <span id="themeIcon"></span> <span id="themeLabel">Dark</span>
+      </button>
+    </div>
     <div class="chat-messages" id="chatMessages">
       <div class="bubble ai">💧 Welcome! Ask me anything.</div>
     </div>
@@ -206,7 +291,29 @@
     </form>
   </div>
   <script>
-    // This is just the UI! Wire up your AI backend where marked.
+    // Theme toggle logic
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeLabel = document.getElementById('themeLabel');
+    const body = document.body;
+
+    function setTheme(theme) {
+      body.setAttribute('data-theme', theme);
+      if (theme === 'light') {
+        themeIcon.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="#3ac6fa"/><g stroke="#2554a3" stroke-width="2"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.2" y1="4.2" x2="7.1" y2="7.1"/><line x1="16.9" y1="16.9" x2="19.8" y2="19.8"/><line x1="16.9" y1="7.1" x2="19.8" y2="4.2"/><line x1="4.2" y1="19.8" x2="7.1" y2="16.9"/></g></svg>';
+        themeLabel.textContent = 'Light';
+      } else {
+        themeIcon.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#2554a3"/><path d="M12 3a9 9 0 1 0 9 9c0-4.97-4.03-9-9-9z" fill="#3ac6fa"/></svg>';
+        themeLabel.textContent = 'Dark';
+      }
+    }
+    themeToggle.addEventListener('click', () => {
+      const current = body.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+    setTheme('dark');
+
+    // Chat logic (UI only)
     const chatMessages = document.getElementById('chatMessages');
     const chatForm = document.getElementById('chatForm');
     const userInput = document.getElementById('userInput');
@@ -215,10 +322,9 @@
       e.preventDefault();
       let text = userInput.value.trim();
       if (!text) return;
-      // Add user bubble with animation
       addBubble(text, 'user');
       userInput.value = '';
-      // TODO: Send to your AI backend and add "ai" bubble with the response
+      // TODO: Wire up your AI backend and add an "ai" bubble with response!
     });
 
     function addBubble(text, sender) {
