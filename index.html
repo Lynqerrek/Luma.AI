@@ -2,54 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sparklu Chat</title>
+  <title>Sparklu.AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Fonts for ChatGPT vibe -->
+  <!-- Inter font for ChatGPT look -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --background: #13151a;
-      --panel: #181a20;
-      --input: #23272f;
-      --border: #282c34;
-      --header-gradient: linear-gradient(90deg, #5ee2ff 0%, #7f7cff 80%);
-      --header-glass: rgba(20, 40, 60, 0.6);
+      --background: #343541;
+      --panel: #444654;
+      --input-bg: #40414f;
+      --border: #565869;
       --brand: #5ee2ff;
-      --user-bubble: #5ee2ff22;
-      --ai-bubble: #23272f;
-      --bubble-radius: 16px;
+      --brand2: #7f7cff;
+      --header-gradient: linear-gradient(90deg, #5ee2ff 0%, #7f7cff 90%);
+      --header-glass: rgba(32,38,52,0.72);
+      --bubble-user: #5ee2ff22;
+      --bubble-ai: #40414f;
+      --bubble-radius: 18px;
       --bubble-shadow: 0 2px 8px #0002;
-      --text-main: #e3e8ee;
+      --text-main: #ececf1;
       --text-secondary: #b3b8c5;
       --icon-bg: #262a35;
+      --footer-bg: #343541;
     }
     body {
       background: var(--background);
-      font-family: 'Inter', Arial, sans-serif;
       color: var(--text-main);
+      font-family: 'Inter', Arial, sans-serif;
       margin: 0;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      justify-content: flex-start;
     }
     .header {
       background: var(--header-gradient);
-      color: #fff;
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      padding: 0 0 0 0;
-      box-shadow: 0 2px 18px #5ee2ff33;
       position: relative;
       z-index: 10;
       user-select: none;
+      box-shadow: 0 2px 18px #5ee2ff33;
     }
     .header-glass {
       background: var(--header-glass);
-      padding: 20px 0 20px 0;
+      padding: 22px 0 22px 0;
       border-bottom: 1px solid var(--border);
       text-align: center;
       backdrop-filter: blur(10px);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #fff;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       box-shadow: 0 2px 8px #5ee2ff11;
@@ -74,12 +76,12 @@
       background: var(--panel);
       border-radius: 18px;
       box-shadow: 0 6px 32px #0004;
-      margin: 32px auto 16px auto;
+      margin: 36px auto 16px auto;
       display: flex;
       flex-direction: column;
-      height: 70vh;
+      height: 72vh;
       min-height: 420px;
-      max-width: 600px;
+      max-width: 620px;
       width: 100%;
       overflow: hidden;
       border: 1px solid var(--border);
@@ -87,10 +89,10 @@
     }
     .chat-messages {
       flex: 1;
-      padding: 32px 24px 16px 24px;
+      padding: 36px 26px 18px 26px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
       overflow-y: auto;
       background: transparent;
       scrollbar-width: thin;
@@ -112,27 +114,28 @@
       box-shadow: var(--bubble-shadow);
       word-break: break-word;
       max-width: 85%;
-      animation: bubbleIn 0.25s cubic-bezier(.44,.97,.26,.98);
+      animation: bubbleIn 0.23s cubic-bezier(.44,.97,.26,.98);
       position: relative;
       border: 1px solid var(--border);
+      transition: background 0.2s, color 0.2s;
     }
     @keyframes bubbleIn {
       from { opacity: 0; transform: translateY(10px) scale(0.98);}
       to { opacity: 1; transform: translateY(0) scale(1);}
     }
     .bubble.ai {
-      background: var(--ai-bubble);
+      background: var(--bubble-ai);
       color: var(--text-main);
       align-self: flex-start;
-      border-bottom-left-radius: 5px;
+      border-bottom-left-radius: 6px;
       border-top-right-radius: var(--bubble-radius);
       border: 1px solid #5ee2ff22;
     }
     .bubble.user {
-      background: var(--user-bubble);
+      background: var(--bubble-user);
       color: var(--text-main);
       align-self: flex-end;
-      border-bottom-right-radius: 5px;
+      border-bottom-right-radius: 6px;
       border-top-left-radius: var(--bubble-radius);
       border: 1px solid #5ee2ff55;
     }
@@ -150,7 +153,7 @@
       font-size: 1.1rem;
       border-radius: 12px;
       border: 1.5px solid var(--border);
-      background: var(--input);
+      background: var(--input-bg);
       color: var(--text-main);
       padding: 13px 16px;
       outline: none;
@@ -183,16 +186,20 @@
       }
       .chat-messages { padding: 20px 8px 10px 8px;}
       .chat-input-panel { padding: 12px 8px; }
+      .header-glass { padding: 13px 0 13px 0;}
     }
-    /* Footer */
     .footer {
       text-align: center;
       color: var(--text-secondary);
-      font-size: 0.95rem;
-      padding: 16px 0 9px 0;
+      font-size: 1rem;
+      padding: 18px 0 9px 0;
+      background: var(--footer-bg);
       opacity: 0.7;
       letter-spacing: 0.5px;
       user-select: none;
+      margin-top: 0;
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -2px 8px #5ee2ff11;
     }
   </style>
 </head>
@@ -200,20 +207,20 @@
   <div class="header">
     <div class="header-glass">
       <span class="sparkle-icon">
-        <!-- Sparkle-like logo SVG -->
+        <!-- Sparkle logo SVG -->
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
           <circle cx="16" cy="16" r="13" fill="#5ee2ff" opacity="0.11"/>
           <path d="M16 7l2.4 7.7h7.5l-6.1 4.7 2.4 7.6L16 22l-6.2 5 2.4-7.6-6.1-4.7h7.5L16 7z" fill="#7f7cff"/>
         </svg>
       </span>
-      Sparklu
+      Sparklu.AI
     </div>
   </div>
   <div class="container">
     <div class="chat-panel">
       <div class="chat-messages" id="chatMessages">
         <div class="bubble ai">
-          <span><b>Welcome to Sparklu!</b><br>How can I help you today?</span>
+          <span><b>Welcome to Sparklu.AI!</b><br>How can I help you today?</span>
         </div>
       </div>
       <form class="chat-input-panel" id="chatForm" autocomplete="off">
@@ -222,7 +229,7 @@
       </form>
     </div>
     <div class="footer">
-      Sparklu &copy; 2025. Inspired by ChatGPT. No AI backend connected.
+      Sparklu.AI &copy; 2025. All rights reserved.
     </div>
   </div>
   <script>
@@ -237,8 +244,8 @@
       addBubble(text, 'user');
       userInput.value = '';
       setTimeout(() => {
-        // Simulated AI response
-        addBubble("This is a sample AI response. You can connect Sparklu to your backend!", 'ai');
+        // Simulated AI response, replace with your backend later
+        addBubble("This is a sample Sparklu.AI response. Connect your AI backend here!", 'ai');
       }, 600);
     });
 
