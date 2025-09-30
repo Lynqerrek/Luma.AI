@@ -292,7 +292,7 @@
     async function callLumaAI(message) {
       const endpoint = "https://openrouter.ai/api/v1/chat/completions";
       const body = {
-        model: "openchat/openchat-3.5-1210", // Free model
+        model: "x-ai/grok-4-fast:free", // Free model
         messages: [
           { role: "system", content: "You are Luma.AI, a friendly and helpful assistant." },
           { role: "user", content: message }
