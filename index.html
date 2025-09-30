@@ -6,9 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      /* Light theme colors */
-      --bg-gradient: radial-gradient(ellipse at 70% 40%, #e5faff 0%, #a7e7ff 60%, #c3e8f6 100%);
-      --card-bg: linear-gradient(120deg, #f4fbff 70%, #d4f1fd 100%);
+      --bg-gradient: radial-gradient(ellipse at 80% 10%, #e5faff 0%, #a7e7ff 46%, #c3e8f6 100%);
+      --card-bg: linear-gradient(120deg, #f4fbff 80%, #d4f1fd 100%);
       --header-bg: linear-gradient(90deg, #e5faff 70%, #a7e7ff 100%);
       --bubble-ai: linear-gradient(120deg, #3ac6fa 70%, #92e2ff 100%);
       --bubble-user: linear-gradient(120deg, #e5faff 65%, #a7e7ff 100%);
@@ -16,18 +15,22 @@
       --text-color: #2554a3;
       --bubble-user-text: #2554a3;
       --bubble-ai-text: #fff;
-      --glass: #ffffff50;
-      --shadow: 0 8px 40px #3ac6fa30, 0 0 0 4px #b5e2ff44;
-      --border: 1.5px solid #92e2ff66;
+      --glass: #ffffff40;
+      --shadow: 0 8px 32px #3ac6fa26, 0 0 0 2px #b5e2ff44;
+      --border: 1.2px solid #92e2ff44;
       --scrollbar: #92e2ff;
       --header-text: #2554a3;
       --toggle-bg: #e5faff;
       --toggle-shadow: 0 2px 8px #3ac6fa22;
+      --tab-bg: #d4f1fdcc;
+      --tab-active: #3ac6fa;
+      --tab-color: #2554a3;
+      --tab-active-color: #fff;
     }
     [data-theme="dark"] {
-      --bg-gradient: radial-gradient(ellipse at 70% 40%, #92e2ff 0%, #3ac6fa 60%, #2554a3 100%);
-      --card-bg: linear-gradient(120deg, #e5faff2a 70%, #b5e2ff2a 100%);
-      --header-bg: linear-gradient(90deg, #92e2ff55 70%, #3ac6fa80 100%);
+      --bg-gradient: radial-gradient(ellipse at 80% 10%, #92e2ff 0%, #3ac6fa 46%, #2554a3 100%);
+      --card-bg: linear-gradient(120deg, #e5faff2a 80%, #b5e2ff2a 100%);
+      --header-bg: linear-gradient(90deg, #92e2ff55 80%, #3ac6fa80 100%);
       --bubble-ai: linear-gradient(120deg, #3ac6fa 70%, #92e2ff 100%);
       --bubble-user: linear-gradient(120deg, #e5faff 65%, #a7e7ff 100%);
       --input-bg: #231b37;
@@ -35,32 +38,30 @@
       --bubble-user-text: #2554a3;
       --bubble-ai-text: #fff;
       --glass: #ffffff30;
-      --shadow: 0 8px 40px #3ac6fa30, 0 0 0 4px #b5e2ff44;
-      --border: 1.5px solid #92e2ff66;
+      --shadow: 0 8px 32px #3ac6fa26, 0 0 0 2px #b5e2ff44;
+      --border: 1.2px solid #92e2ff44;
       --scrollbar: #92e2ff;
       --header-text: #fff;
       --toggle-bg: #1a2136;
       --toggle-shadow: 0 2px 8px #3ac6fa22;
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
+      --tab-bg: #231b37cc;
+      --tab-active: #3ac6fa;
+      --tab-color: #e1d9ff;
+      --tab-active-color: #fff;
     }
     body {
       font-family: 'Segoe UI', 'Inter', Arial, sans-serif;
       min-height: 100vh;
       background: var(--bg-gradient);
       position: relative;
-      overflow: hidden;
+      margin: 0;
       transition: background 0.5s;
-      animation: fadeInBg 1.2s;
+      animation: fadeInBg 1s;
     }
     @keyframes fadeInBg {
       from { opacity: 0;}
       to { opacity: 1;}
     }
-    /* Glass effect overlay */
     .aero-glass {
       position: fixed;
       z-index: 0;
@@ -69,64 +70,84 @@
       height: 100vh;
       pointer-events: none;
       background: var(--glass);
-      backdrop-filter: blur(20px);
-      opacity: 0.22;
+      backdrop-filter: blur(18px);
+      opacity: 0.18;
       transition: background 0.5s, opacity 0.5s;
     }
-    /* Chat Card */
     .chat-container {
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 470px;
+      max-width: 370px;
       height: 78vh;
-      min-height: 490px;
-      margin: 68px auto 0 auto;
+      min-height: 420px;
+      margin: 40px auto 0 auto;
       background: var(--card-bg);
-      border-radius: 26px;
+      border-radius: 18px;
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      animation: slideInChat 0.9s cubic-bezier(.44,.97,.26,.98);
       border: var(--border);
       backdrop-filter: blur(10px);
       transition: background 0.5s, box-shadow 0.5s, border 0.5s;
     }
-    @keyframes slideInChat {
-      from { transform: scale(0.96) translateY(30px); opacity: 0;}
-      to { transform: scale(1) translateY(0); opacity: 1;}
+    /* Tabs */
+    .chat-tabs {
+      display: flex;
+      background: var(--tab-bg);
+      border-bottom: 1px solid #b5e2ff33;
+      padding: 0;
+      margin: 0;
+      box-shadow: 0 2px 12px #92e2ff14;
+      z-index: 5;
     }
+    .chat-tab {
+      flex: 1;
+      padding: 8px 0;
+      text-align: center;
+      cursor: pointer;
+      font-size: 1em;
+      color: var(--tab-color);
+      background: none;
+      border: none;
+      outline: none;
+      font-weight: 500;
+      transition: background 0.3s, color 0.3s;
+      border-bottom: 2.5px solid transparent;
+    }
+    .chat-tab.active {
+      background: var(--tab-active);
+      color: var(--tab-active-color);
+      border-bottom: 2.5px solid var(--tab-active);
+      font-weight: 700;
+    }
+    /* Header */
     .chat-header {
       background: var(--header-bg);
       color: var(--header-text);
       text-align: center;
-      padding: 30px 0 22px 0;
-      font-size: 1.7em;
-      letter-spacing: 1px;
+      padding: 16px 0 8px 0;
+      font-size: 1.25em;
       font-weight: 700;
-      border-bottom: 1px solid #b5e2ff33;
-      box-shadow: 0 1px 8px #3ac6fa22;
+      border-bottom: 1px solid #b5e2ff22;
       user-select: none;
-      animation: fadeInHeader 1.2s 0.3s backwards;
-      text-shadow: 0 2px 18px #92e2ff80;
+      text-shadow: 0 2px 10px #92e2ff50;
       backdrop-filter: blur(4px);
       transition: background 0.5s, color 0.5s;
-    }
-    @keyframes fadeInHeader {
-      from { opacity: 0; transform: translateY(-18px);}
-      to { opacity: 1; transform: translateY(0);}
+      min-height: 40px;
+      position: relative;
     }
     .theme-toggle {
       position: absolute;
-      right: 22px;
-      top: 22px;
+      right: 14px;
+      top: 10px;
       background: var(--toggle-bg);
       color: var(--header-text);
       border: none;
       border-radius: 14px;
-      padding: 8px 18px;
-      font-size: 1.08em;
+      padding: 5px 12px;
+      font-size: 1em;
       box-shadow: var(--toggle-shadow);
       cursor: pointer;
       font-weight: 600;
@@ -135,98 +156,100 @@
       outline: none;
       display: flex;
       align-items: center;
-      gap: 8px;
-      opacity: 0.92;
-      border: 1px solid #a7e7ff60;
-      backdrop-filter: blur(6px);
+      gap: 7px;
+      opacity: 0.93;
+      border: 1px solid #a7e7ff40;
+      backdrop-filter: blur(5px);
     }
     .theme-toggle:hover {
       opacity: 1;
-      box-shadow: 0 4px 18px #3ac6fa44;
+      box-shadow: 0 4px 12px #3ac6fa44;
     }
     .theme-toggle svg {
       vertical-align: middle;
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
       filter: drop-shadow(0 0 2px #92e2ff);
       transition: filter 0.3s;
     }
     .chat-messages {
       flex: 1;
-      padding: 30px 22px;
+      padding: 16px 12px;
       overflow-y: auto;
       background: transparent;
       display: flex;
       flex-direction: column;
-      gap: 19px;
+      gap: 9px;
       position: relative;
       z-index: 1;
       transition: background 0.5s;
     }
     .bubble {
-      padding: 16px 26px;
-      border-radius: 24px;
-      max-width: 83%;
-      font-size: 1.16em;
-      line-height: 1.6;
+      padding: 10px 16px;
+      border-radius: 14px;
+      max-width: 80%;
+      font-size: 1em;
+      line-height: 1.35;
       word-break: break-word;
       display: inline-block;
-      box-shadow: 0 2px 16px #92e2ff15;
-      margin-bottom: 3px;
-      animation: bubbleIn 0.32s cubic-bezier(.44,.97,.26,.98);
-      border: 1.5px solid #b5e2ff44;
+      box-shadow: 0 2px 8px #92e2ff10;
+      margin-bottom: 2px;
+      animation: bubbleIn 0.28s cubic-bezier(.44,.97,.26,.98);
+      border: 1.2px solid #b5e2ff44;
       transition: background 0.2s, color 0.2s, border 0.2s;
-      backdrop-filter: blur(3px);
+      backdrop-filter: blur(2px);
     }
     @keyframes bubbleIn {
-      from { opacity: 0; transform: translateY(18px) scale(0.97);}
+      from { opacity: 0; transform: translateY(16px) scale(0.96);}
       to { opacity: 1; transform: translateY(0) scale(1);}
     }
     .user {
       background: var(--bubble-user);
       color: var(--bubble-user-text);
       align-self: flex-end;
-      border-bottom-right-radius: 8px;
-      border-top-left-radius: 26px;
-      border: 1.5px solid #a7e7ff80;
-      box-shadow: 0 4px 20px #a7e7ff22;
+      border-bottom-right-radius: 5px;
+      border-top-left-radius: 16px;
+      border: 1.2px solid #a7e7ff60;
+      box-shadow: 0 2px 12px #a7e7ff12;
       font-weight: 500;
-      text-shadow: 0 1px 8px #e5faff44;
+      text-shadow: 0 1px 5px #e5faff22;
     }
     .ai {
       background: var(--bubble-ai);
       color: var(--bubble-ai-text);
       align-self: flex-start;
-      border-bottom-left-radius: 8px;
-      border-top-right-radius: 26px;
-      border: 1.5px solid #3ac6fa60;
-      box-shadow: 0 4px 20px #3ac6fa44;
+      border-bottom-left-radius: 5px;
+      border-top-right-radius: 16px;
+      border: 1.2px solid #3ac6fa60;
+      box-shadow: 0 2px 12px #3ac6fa20;
       font-weight: 500;
-      text-shadow: 0 1px 14px #92e2ff80;
+      text-shadow: 0 1px 8px #92e2ff30;
     }
     .chat-input {
       display: flex;
-      border-top: 1px solid #b5e2ff33;
-      padding: 20px 18px;
+      border-top: 1px solid #b5e2ff22;
+      padding: 8px 8px;
       background: var(--header-bg);
-      gap: 14px;
+      gap: 8px;
       backdrop-filter: blur(4px);
-      box-shadow: 0 -2px 18px #92e2ff22;
+      box-shadow: 0 -2px 8px #92e2ff12;
       transition: background 0.5s;
+      min-height: 44px;
     }
     .chat-input input {
       flex: 1;
-      padding: 15px 20px;
-      font-size: 1.15em;
-      border-radius: 18px;
-      border: 1.8px solid #3ac6fa;
+      padding: 8px 12px;
+      font-size: 0.98em;
+      border-radius: 11px;
+      border: 1.2px solid #3ac6fa;
       background: var(--input-bg);
       color: var(--text-color);
       outline: none;
       transition: border-color 0.22s, background 0.5s, color 0.5s;
-      box-shadow: 0 1px 8px #3ac6fa10;
+      box-shadow: 0 1px 4px #3ac6fa10;
       font-weight: 500;
       backdrop-filter: blur(1.5px);
+      min-height: 32px;
     }
     .chat-input input:focus {
       border-color: #92e2ff;
@@ -235,52 +258,56 @@
       background: linear-gradient(90deg, #3ac6fa 70%, #92e2ff 100%);
       color: #fff;
       border: none;
-      padding: 0 36px;
-      border-radius: 18px;
-      font-size: 1.11em;
+      padding: 0 18px;
+      border-radius: 11px;
+      font-size: 1em;
       cursor: pointer;
       font-weight: 600;
-      box-shadow: 0 2px 14px #92e2ff44;
+      box-shadow: 0 2px 8px #92e2ff22;
       transition: background 0.18s, box-shadow 0.18s;
-      text-shadow: 0 1px 10px #3ac6fa40;
+      text-shadow: 0 1px 8px #3ac6fa20;
+      min-height: 32px;
     }
     .chat-input button:hover {
       background: linear-gradient(90deg, #92e2ff 50%, #3ac6fa 100%);
-      box-shadow: 0 4px 22px #3ac6fa44;
+      box-shadow: 0 4px 10px #3ac6fa44;
     }
     /* Custom scrollbar for chat */
     .chat-messages::-webkit-scrollbar {
-      width: 7px;
+      width: 6px;
       background: var(--card-bg);
-      border-radius: 7px;
+      border-radius: 6px;
     }
     .chat-messages::-webkit-scrollbar-thumb {
       background: var(--scrollbar);
-      border-radius: 7px;
+      border-radius: 6px;
     }
     /* Responsive */
-    @media (max-width: 600px) {
+    @media (max-width: 550px) {
       .chat-container {
         max-width: 99vw;
         margin: 5vw auto 0 auto;
-        min-height: 72vw;
+        min-height: 70vw;
       }
       .chat-messages { padding: 5vw 2vw; }
       .chat-header, .chat-input { padding-left: 2vw; padding-right: 2vw;}
-      .theme-toggle { right: 6vw; top: 10px; }
+      .theme-toggle { right: 5vw; top: 8px; }
     }
   </style>
 </head>
 <body data-theme="dark">
-  <!-- Frutiger Aero Glass Effect -->
   <div class="aero-glass"></div>
-
   <div class="chat-container">
     <div class="chat-header">
-      Frutiger Aero Chat AI
+      Frutiger Aero Chat
       <button class="theme-toggle" id="themeToggle" title="Toggle theme">
         <span id="themeIcon"></span> <span id="themeLabel">Dark</span>
       </button>
+    </div>
+    <div class="chat-tabs">
+      <button class="chat-tab active" data-tab="chats">Chats</button>
+      <button class="chat-tab" data-tab="settings">Settings</button>
+      <button class="chat-tab" data-tab="about">About</button>
     </div>
     <div class="chat-messages" id="chatMessages">
       <div class="bubble ai">💧 Welcome! Ask me anything.</div>
@@ -289,6 +316,13 @@
       <input type="text" id="userInput" placeholder="Type your message..." required />
       <button type="submit">Send</button>
     </form>
+    <!-- Settings and About tabs (hidden by default) -->
+    <div class="chat-messages" id="settingsTab" style="display:none;">
+      <div class="bubble ai">⚙️ <b>Settings</b><br><small>Here you can add settings for your AI app (e.g. theme, notifications, etc).</small></div>
+    </div>
+    <div class="chat-messages" id="aboutTab" style="display:none;">
+      <div class="bubble ai">ℹ️ <b>About</b><br><small>This Frutiger Aero theme chat demo was made for you!</small></div>
+    </div>
   </div>
   <script>
     // Theme toggle logic
@@ -296,14 +330,13 @@
     const themeIcon = document.getElementById('themeIcon');
     const themeLabel = document.getElementById('themeLabel');
     const body = document.body;
-
     function setTheme(theme) {
       body.setAttribute('data-theme', theme);
       if (theme === 'light') {
-        themeIcon.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="#3ac6fa"/><g stroke="#2554a3" stroke-width="2"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.2" y1="4.2" x2="7.1" y2="7.1"/><line x1="16.9" y1="16.9" x2="19.8" y2="19.8"/><line x1="16.9" y1="7.1" x2="19.8" y2="4.2"/><line x1="4.2" y1="19.8" x2="7.1" y2="16.9"/></g></svg>';
+        themeIcon.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="#3ac6fa"/><g stroke="#2554a3" stroke-width="2"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.2" y1="4.2" x2="7.1" y2="7.1"/><line x1="16.9" y1="16.9" x2="19.8" y2="19.8"/><line x1="16.9" y1="7.1" x2="19.8" y2="4.2"/><line x1="4.2" y1="19.8" x2="7.1" y2="16.9"/></g></svg>';
         themeLabel.textContent = 'Light';
       } else {
-        themeIcon.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#2554a3"/><path d="M12 3a9 9 0 1 0 9 9c0-4.97-4.03-9-9-9z" fill="#3ac6fa"/></svg>';
+        themeIcon.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#2554a3"/><path d="M12 3a9 9 0 1 0 9 9c0-4.97-4.03-9-9-9z" fill="#3ac6fa"/></svg>';
         themeLabel.textContent = 'Dark';
       }
     }
@@ -313,11 +346,34 @@
     });
     setTheme('dark');
 
-    // Chat logic (UI only)
+    // Tabs logic
+    const tabs = document.querySelectorAll('.chat-tab');
     const chatMessages = document.getElementById('chatMessages');
+    const settingsTab = document.getElementById('settingsTab');
+    const aboutTab = document.getElementById('aboutTab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        if (tab.dataset.tab === "chats") {
+          chatMessages.style.display = "";
+          settingsTab.style.display = "none";
+          aboutTab.style.display = "none";
+        } else if (tab.dataset.tab === "settings") {
+          chatMessages.style.display = "none";
+          settingsTab.style.display = "";
+          aboutTab.style.display = "none";
+        } else if (tab.dataset.tab === "about") {
+          chatMessages.style.display = "none";
+          settingsTab.style.display = "none";
+          aboutTab.style.display = "";
+        }
+      });
+    });
+
+    // Chat logic (UI only)
     const chatForm = document.getElementById('chatForm');
     const userInput = document.getElementById('userInput');
-
     chatForm.addEventListener('submit', function(e){
       e.preventDefault();
       let text = userInput.value.trim();
@@ -326,7 +382,6 @@
       userInput.value = '';
       // TODO: Wire up your AI backend and add an "ai" bubble with response!
     });
-
     function addBubble(text, sender) {
       const bubble = document.createElement('div');
       bubble.classList.add('bubble', sender);
