@@ -4,28 +4,27 @@
   <meta charset="UTF-8">
   <title>Sparklu.AI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Inter font for professional look -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --background: #15161a;
-      --gradient: linear-gradient(90deg, #5ee2ff 0%, #7f7cff 100%);
-      --glass: rgba(32,38,52,0.82);
-      --panel: #21222a;
-      --input-bg: #17181c;
-      --border: #232232;
-      --bubble-ai: #191a1e;
-      --bubble-user: #232232;
-      --bubble-radius: 18px;
-      --bubble-shadow: 0 2px 8px #0004;
+      --background: #18181f;
+      --panel: #232339;
+      --input-bg: #18181f;
+      --border: #2a2b32;
       --brand: #5ee2ff;
       --brand2: #7f7cff;
-      --text-main: #e4e7ee;
-      --text-secondary: #a8b1bb;
-      --sidebar-bg: #13141a;
-      --sidebar-border: #232232;
-      --footer-bg: #13141a;
+      --header-gradient: linear-gradient(90deg, #5ee2ff 0%, #7f7cff 90%);
+      --header-glass: rgba(32,38,52,0.86);
+      --bubble-user: #232339;
+      --bubble-ai: #191a22;
+      --bubble-radius: 18px;
+      --bubble-shadow: 0 2px 8px #0003;
+      --text-main: #ececf1;
+      --text-secondary: #b3b8c5;
+      --footer-bg: #18181f;
       --scrollbar-thumb: #5ee2ff99;
-      --scrollbar-track: #232232;
+      --scrollbar-track: #232339;
     }
     body {
       background: var(--background);
@@ -39,7 +38,7 @@
     }
     .header {
       width: 100vw;
-      background: var(--gradient);
+      background: var(--header-gradient);
       box-shadow: 0 2px 18px #5ee2ff33;
       position: fixed;
       top: 0;
@@ -48,64 +47,29 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 62px;
+      height: 60px;
     }
     .header-glass {
-      background: var(--glass);
-      padding: 0 0;
+      background: var(--header-glass);
       width: 100%;
       text-align: center;
-      font-size: 1.55rem;
+      font-size: 1.5rem;
       font-weight: 700;
       letter-spacing: 2px;
       color: #fff;
       border-bottom: 1.5px solid var(--border);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(9px);
       box-shadow: 0 2px 8px #5ee2ff11;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 62px;
+      height: 60px;
     }
     .sparkle-icon {
       display: inline-block;
       vertical-align: middle;
       margin-right: 12px;
       margin-bottom: 2px;
-    }
-    .layout {
-      display: flex;
-      flex: 1;
-      width: 100vw;
-      margin-top: 62px;
-      min-height: calc(100vh - 62px);
-    }
-    .sidebar {
-      background: var(--sidebar-bg);
-      border-right: 1.5px solid var(--sidebar-border);
-      width: 68px;
-      min-width: 68px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 24px;
-      z-index: 5;
-      box-shadow: 1px 0 24px #191a1e22;
-    }
-    .sidebar-btn {
-      background: none;
-      border: none;
-      color: var(--brand2);
-      margin-bottom: 18px;
-      cursor: pointer;
-      font-size: 1.6rem;
-      transition: color 0.2s;
-      outline: none;
-      padding: 7px 0;
-    }
-    .sidebar-btn.active, .sidebar-btn:hover {
-      color: var(--brand);
     }
     .main {
       flex: 1;
@@ -114,6 +78,8 @@
       align-items: center;
       justify-content: flex-end;
       min-height: 0;
+      width: 100vw;
+      margin-top: 60px;
     }
     .chat-panel {
       background: var(--panel);
@@ -123,18 +89,18 @@
       display: flex;
       flex-direction: column;
       height: 70vh;
-      min-height: 440px;
-      max-width: 680px;
-      width: 95vw;
+      min-height: 400px;
+      max-width: 660px;
+      width: 96vw;
       overflow: hidden;
       border: 1.5px solid var(--border);
       position: relative;
       backdrop-filter: blur(5px);
-      background-image: linear-gradient(120deg, #191a1e 93%, #21222a 100%);
+      background-image: linear-gradient(120deg, #191a22 93%, #232339 100%);
     }
     .chat-messages {
       flex: 1;
-      padding: 38px 38px 20px 38px;
+      padding: 38px 38px 22px 38px;
       display: flex;
       flex-direction: column;
       gap: 22px;
@@ -238,13 +204,12 @@
       }
       .chat-messages { padding: 17px 5vw 11px 5vw;}
       .chat-input-panel { padding: 15px 2vw; }
-      .header-glass { font-size: 1.2rem; }
+      .header-glass { font-size: 1.18rem; }
     }
     @media (max-width: 600px) {
-      .sidebar { width: 52px; min-width: 52px; }
       .chat-panel { margin: 8px auto 0 auto; }
       .header, .header-glass { height: 46px;}
-      .layout { margin-top: 46px;}
+      .main { margin-top: 46px; }
     }
     .footer {
       text-align: center;
@@ -275,30 +240,20 @@
       Sparklu.AI
     </div>
   </div>
-  <div class="layout">
-    <div class="sidebar">
-      <button class="sidebar-btn active" title="Chat">
-        <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="14" height="12" rx="4"/><path d="M6 18v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/></svg>
-      </button>
-      <button class="sidebar-btn" title="Future Tab (disabled)" disabled>
-        <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13" cy="13" r="10"/><path d="M13 8v5l4 2"/></svg>
-      </button>
-    </div>
-    <div class="main">
-      <div class="chat-panel">
-        <div class="chat-messages" id="chatMessages">
-          <div class="bubble ai">
-            <span><b>Welcome to Sparklu.AI!</b><br>How can I help you today?</span>
-          </div>
+  <div class="main">
+    <div class="chat-panel">
+      <div class="chat-messages" id="chatMessages">
+        <div class="bubble ai">
+          <span><b>Welcome to Sparklu.AI!</b><br>How can I help you today?</span>
         </div>
-        <form class="chat-input-panel" id="chatForm" autocomplete="off">
-          <input type="text" id="userInput" placeholder="Send a message..." required />
-          <button type="submit">Send</button>
-        </form>
       </div>
-      <div class="footer">
-        Sparklu.AI &copy; 2025. All rights reserved.
-      </div>
+      <form class="chat-input-panel" id="chatForm" autocomplete="off">
+        <input type="text" id="userInput" placeholder="Send a message..." required />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+    <div class="footer">
+      Sparklu.AI &copy; 2025. All rights reserved.
     </div>
   </div>
   <script>
