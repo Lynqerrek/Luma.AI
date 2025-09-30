@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AI Chat — Forest Dark</title>
+  <title>AI Chat — Frutiger Aero</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Forest SVG background, fixed */
+    /* Frutiger Aero Glassy Background */
     body {
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #1a102b 0%, #3d2169 100%);
+      font-family: 'Segoe UI', 'Inter', Arial, sans-serif;
+      background: radial-gradient(ellipse at 70% 40%, #92e2ff 0%, #3ac6fa 50%, #2554a3 100%) fixed;
       position: relative;
       overflow: hidden;
       animation: fadeInBg 1.2s;
@@ -20,56 +20,55 @@
       from { opacity: 0;}
       to { opacity: 1;}
     }
-    /* Minimalistic forest art */
-    .forest-bg {
+    /* Glass & glow effect */
+    .aero-glass {
       position: fixed;
       z-index: 0;
       left: 0; top: 0;
       width: 100vw;
       height: 100vh;
       pointer-events: none;
-      opacity: 0.23;
-      background: none;
-      animation: fadeInForest 1.7s 0.3s backwards;
-      transition: opacity 0.8s;
-    }
-    @keyframes fadeInForest {
-      from { opacity: 0; transform: translateY(30px);}
-      to { opacity: 0.23; transform: translateY(0);}
+      background: linear-gradient(135deg, #ffffff30 0%, #92e2ff26 100%);
+      backdrop-filter: blur(20px);
+      opacity: 0.26;
     }
     /* Chat container styling */
     .chat-container {
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 420px;
+      max-width: 430px;
       height: 75vh;
-      min-height: 460px;
+      min-height: 480px;
       margin: 60px auto 0 auto;
-      background: linear-gradient(120deg, #24194a 70%, #3d2169 100%);
-      border-radius: 18px;
-      box-shadow: 0 8px 32px #0006, 0 0 0 4px #3d216960;
+      background: linear-gradient(120deg, #e5faff2a 70%, #b5e2ff2a 100%);
+      border-radius: 22px;
+      box-shadow: 0 8px 40px #3ac6fa30, 0 0 0 4px #b5e2ff44;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       animation: slideInChat 0.9s cubic-bezier(.44,.97,.26,.98);
+      border: 1.5px solid #92e2ff66;
+      backdrop-filter: blur(10px);
     }
     @keyframes slideInChat {
-      from { transform: scale(0.94) translateY(30px); opacity: 0;}
+      from { transform: scale(0.96) translateY(30px); opacity: 0;}
       to { transform: scale(1) translateY(0); opacity: 1;}
     }
     .chat-header {
-      background: linear-gradient(90deg, #24194a 70%, #3d2169 100%);
-      color: #e1d9ff;
+      background: linear-gradient(90deg, #92e2ff55 70%, #3ac6fa80 100%);
+      color: #fff;
       text-align: center;
-      padding: 22px 0 19px 0;
-      font-size: 1.5em;
+      padding: 26px 0 20px 0;
+      font-size: 1.6em;
       letter-spacing: 1px;
-      font-weight: 600;
-      border-bottom: 1px solid #31225b;
-      box-shadow: 0 1px 8px #0002;
+      font-weight: 700;
+      border-bottom: 1px solid #b5e2ff33;
+      box-shadow: 0 1px 8px #3ac6fa22;
       user-select: none;
       animation: fadeInHeader 1.2s 0.3s backwards;
+      text-shadow: 0 2px 12px #92e2ff80;
+      backdrop-filter: blur(4px);
     }
     @keyframes fadeInHeader {
       from { opacity: 0; transform: translateY(-18px);}
@@ -77,139 +76,129 @@
     }
     .chat-messages {
       flex: 1;
-      padding: 22px 16px;
+      padding: 26px 20px;
       overflow-y: auto;
-      background: linear-gradient(90deg, #231b37 80%, #291f43 100%);
+      background: linear-gradient(90deg, #e5faff18 80%, #b5e2ff25 100%);
       display: flex;
       flex-direction: column;
-      gap: 13px;
+      gap: 15px;
       position: relative;
       z-index: 1;
     }
     .bubble {
-      padding: 12px 18px;
+      padding: 14px 22px;
       border-radius: 18px;
-      max-width: 78%;
-      font-size: 1.08em;
+      max-width: 80%;
+      font-size: 1.12em;
       line-height: 1.5;
       word-break: break-word;
       display: inline-block;
-      box-shadow: 0 2px 8px #0002;
+      box-shadow: 0 2px 12px #92e2ff24;
       margin-bottom: 2px;
-      animation: bubbleIn 0.41s cubic-bezier(.44,.97,.26,.98);
-      border: 1px solid #2f225a;
+      animation: bubbleIn 0.36s cubic-bezier(.44,.97,.26,.98);
+      border: 1.5px solid #b5e2ff44;
       transition: background 0.2s, color 0.2s;
+      backdrop-filter: blur(3px);
     }
     @keyframes bubbleIn {
       from { opacity: 0; transform: translateY(18px) scale(0.97);}
       to { opacity: 1; transform: translateY(0) scale(1);}
     }
     .user {
-      background: linear-gradient(120deg, #7b54ff 60%, #b69cff 100%);
-      color: #fff;
+      background: linear-gradient(120deg, #e5faff 65%, #a7e7ff 100%);
+      color: #2554a3;
       align-self: flex-end;
-      border-bottom-right-radius: 4px;
+      border-bottom-right-radius: 6px;
       border-top-left-radius: 20px;
-      border: 1px solid #7b54ff60;
-      box-shadow: 0 4px 12px #7b54ff22;
+      border: 1.5px solid #a7e7ff80;
+      box-shadow: 0 4px 18px #a7e7ff22;
+      font-weight: 500;
+      text-shadow: 0 1px 6px #e5faff44;
     }
     .ai {
-      background: linear-gradient(120deg, #23203d 60%, #3d2169 100%);
-      color: #e1d9ff;
+      background: linear-gradient(120deg, #3ac6fa 70%, #92e2ff 100%);
+      color: #fff;
       align-self: flex-start;
-      border-bottom-left-radius: 4px;
+      border-bottom-left-radius: 6px;
       border-top-right-radius: 20px;
-      border: 1px solid #3d2169a0;
-      box-shadow: 0 4px 12px #3d216922;
+      border: 1.5px solid #3ac6fa60;
+      box-shadow: 0 4px 18px #3ac6fa44;
+      font-weight: 500;
+      text-shadow: 0 1px 12px #92e2ff80;
     }
     .chat-input {
       display: flex;
-      border-top: 1px solid #31225b;
-      padding: 16px;
-      background: linear-gradient(90deg, #24194a 70%, #3d2169 100%);
-      gap: 10px;
+      border-top: 1px solid #b5e2ff33;
+      padding: 18px 16px;
+      background: linear-gradient(90deg, #e5faff55 70%, #3ac6fa90 100%);
+      gap: 12px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 -2px 18px #92e2ff22;
     }
     .chat-input input {
       flex: 1;
-      padding: 11px 16px;
-      font-size: 1.07em;
-      border-radius: 16px;
-      border: 1.5px solid #7b54ff;
-      background: #231b37;
-      color: #fff;
+      padding: 13px 18px;
+      font-size: 1.11em;
+      border-radius: 18px;
+      border: 1.5px solid #3ac6fa;
+      background: #e5faff88;
+      color: #2554a3;
       outline: none;
       transition: border-color 0.22s;
-      box-shadow: 0 1px 8px #7b54ff10;
+      box-shadow: 0 1px 8px #3ac6fa10;
+      font-weight: 500;
+      backdrop-filter: blur(1.5px);
     }
     .chat-input input:focus {
-      border-color: #b69cff;
+      border-color: #92e2ff;
     }
     .chat-input button {
-      background: linear-gradient(90deg, #7b54ff 70%, #b69cff 100%);
+      background: linear-gradient(90deg, #3ac6fa 70%, #92e2ff 100%);
       color: #fff;
       border: none;
-      padding: 0 28px;
-      border-radius: 16px;
-      font-size: 1em;
+      padding: 0 34px;
+      border-radius: 18px;
+      font-size: 1.07em;
       cursor: pointer;
-      font-weight: 500;
-      box-shadow: 0 2px 8px #7b54ff22;
+      font-weight: 600;
+      box-shadow: 0 2px 12px #92e2ff44;
       transition: background 0.18s, box-shadow 0.18s;
+      text-shadow: 0 1px 10px #3ac6fa40;
     }
     .chat-input button:hover {
-      background: linear-gradient(90deg, #b69cff 50%, #7b54ff 100%);
-      box-shadow: 0 4px 16px #7b54ff44;
+      background: linear-gradient(90deg, #92e2ff 50%, #3ac6fa 100%);
+      box-shadow: 0 4px 20px #3ac6fa44;
     }
     /* Custom scrollbar for chat */
     .chat-messages::-webkit-scrollbar {
       width: 7px;
-      background: #231b37;
+      background: #e5faff18;
       border-radius: 7px;
     }
     .chat-messages::-webkit-scrollbar-thumb {
-      background: #7b54ff;
+      background: #92e2ff;
       border-radius: 7px;
     }
     /* Responsive */
     @media (max-width: 600px) {
       .chat-container {
-        max-width: 98vw;
-        margin: 8vw auto 0 auto;
+        max-width: 99vw;
+        margin: 5vw auto 0 auto;
         min-height: 72vw;
       }
-      .chat-messages { padding: 4vw 2vw; }
+      .chat-messages { padding: 5vw 2vw; }
       .chat-header, .chat-input { padding-left: 2vw; padding-right: 2vw;}
     }
   </style>
 </head>
 <body>
-  <!-- Minimalistic SVG Forest Art Background -->
-  <div class="forest-bg">
-    <svg width="100%" height="100%" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;left:0;top:0;">
-      <!-- Distant hills -->
-      <ellipse cx="720" cy="900" rx="900" ry="280" fill="#2e2251" />
-      <ellipse cx="300" cy="860" rx="390" ry="150" fill="#281f45" />
-      <ellipse cx="1300" cy="870" rx="380" ry="130" fill="#241b39" />
-      <!-- Distant trees -->
-      <rect x="180" y="700" width="18" height="120" rx="9" fill="#31225b" opacity="0.78"/>
-      <rect x="320" y="740" width="16" height="80" rx="8" fill="#31225b" opacity="0.62"/>
-      <rect x="1150" y="760" width="15" height="82" rx="7" fill="#31225b" opacity="0.68"/>
-      <rect x="1260" y="720" width="18" height="110" rx="8" fill="#31225b" opacity="0.56"/>
-      <!-- Foreground trees -->
-      <rect x="240" y="830" width="25" height="70" rx="12" fill="#6c4cd6"/>
-      <rect x="1275" y="835" width="21" height="65" rx="11" fill="#7b54ff"/>
-      <rect x="710" y="840" width="26" height="74" rx="13" fill="#b69cff"/>
-      <!-- Bushes -->
-      <ellipse cx="270" cy="890" rx="40" ry="18" fill="#7b54ff"/>
-      <ellipse cx="1300" cy="890" rx="38" ry="14" fill="#b69cff"/>
-      <ellipse cx="740" cy="880" rx="60" ry="24" fill="#6c4cd6"/>
-    </svg>
-  </div>
+  <!-- Frutiger Aero Glass Effect -->
+  <div class="aero-glass"></div>
 
   <div class="chat-container">
-    <div class="chat-header">Forest AI Chat</div>
+    <div class="chat-header">Frutiger Aero Chat AI</div>
     <div class="chat-messages" id="chatMessages">
-      <div class="bubble ai">🌲 Welcome to Forest AI. Start your conversation!</div>
+      <div class="bubble ai">💧 Welcome! Ask me anything.</div>
     </div>
     <form class="chat-input" id="chatForm" autocomplete="off">
       <input type="text" id="userInput" placeholder="Type your message..." required />
